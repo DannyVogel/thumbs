@@ -17,7 +17,7 @@
     "vite": "^3.0.7"
   },  
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "vite build"
   },  
   "eslintConfig": {
