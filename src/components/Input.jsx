@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Results from "./Results";
 
 
@@ -50,8 +50,6 @@ const styles2 = {
     backgroundColor: clicked.clickedR === true ? "#C060A1" : null
 }
 
-console.log(clicked)
-
     return (
         <div>
                 <div>
@@ -72,7 +70,7 @@ console.log(clicked)
                 </div>
                 <br />
                 {!show && <img className="fist-bump-img" src="../fist-bump.png" alt="fist bump" /> }
-                {show ? <Results guess={clicked.guess} p1Total={clicked.numThumb}/> : <h1>Good luck!</h1>}
+                {show ? <Results guess={clicked.guess} p1Total={clicked.numThumb} /> : <h1>Good luck!</h1>}
         </div>
     )
 }
