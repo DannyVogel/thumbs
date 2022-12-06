@@ -1,26 +1,38 @@
-import React from 'react'
+import React, {useState, useEffect}  from 'react'
+import Fist from './Fist'
 
 export default function Results(props) {
+  let result = ""
   const p2Total = (Math.round(Math.random() * 2))
   const totalNumThumb = props.p1Total + p2Total
-  console.log(totalNumThumb, props.guess)
-  
+
+  if(totalNumThumb == props.guess) {
+    result = (<h1>You Won!</h1>)
+  } else {
+    result = (<h1>You Lost!</h1>)
+  }
+
+
   return (
     <div>
         <br />
         <div>
-            <h1>{totalNumThumb === props.guess ? "You Won!" : "You Lost!"}</h1>
+            {result}
             <div className='player-stats'>
               <div>
-               <p>Your thumbs up: {props.p1Total}</p>
-               <img className='fist' src={props.p1Total > 0 ? "../like.png" : "../protest.png"} alt="fist" />
-               <img className='fist' src={props.p1Total > 1 ? "../like.png" : "../protest.png"} alt="fist" />
+              <h1>Player 1</h1>
+               <p>Thumbs up:</p>
+               <Fist src={props.p1Total > 0 ? "../like.png" : "../protest.png"}/> 
+               <Fist src={props.p1Total > 1 ? "../like.png" : "../protest.png"}/> 
+               <p>Score: 0</p> 
               </div>
               
               <div>
-                <p>P2 thumbs up: {p2Total}</p>
-                <img className='fist flip' src={p2Total > 0 ? "../like.png" : "../protest.png"} alt="fist" />
-                <img className='fist flip' src={p2Total > 1 ? "../like.png" : "../protest.png"} alt="fist" />
+                <h1>Player 2</h1>
+                <p>Thumbs up:</p>
+                <Fist class="flip" src={p2Total > 0 ? "../like.png" : "../protest.png"}/> 
+                <Fist class="flip" src={p2Total > 1 ? "../like.png" : "../protest.png"}/>
+                <p>Score: 0 </p> 
               </div>
             </div>
             <p>Your guess: {props.guess}</p>

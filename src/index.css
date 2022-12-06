@@ -40,6 +40,7 @@ ul {
 .fist {
     width: 40px;
     height: 35px;
+    object-fit: contain;
 }
 
 .flip {
@@ -69,7 +70,7 @@ ul {
 }
 
 .footer {
-    position: fixed;
+    position: sticky;
     margin: auto;
     max-width: 100%;
     min-width: 100%;
