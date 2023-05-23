@@ -7,8 +7,16 @@ body {
     min-height: 100%;
 }
 
+.main {
+    display: grid;
+    grid-template-rows: 80px 1fr 80px;
+    height: 100vh;
+}
+
 .header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #C060A1;
     margin: 0;
     padding: 10px 0;
@@ -16,25 +24,58 @@ body {
 }
 
 .main-game {
-    text-align: center;
-    margin: auto;
-    max-width: 100%;
-    color: #00005C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin: 0;
+    padding: 10px 0;
+    color: #00005C
+}
+
+.instructionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    color: #00005C
 }
 
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
   }
+
+.inputContainer, .guessContainer, .resultsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
 
 .fist-bump-img {
     width: 100px;
 }
 
-.player-stats {
+.playerScoresContainer {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    gap: 50px;
+}
+
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .fist {
@@ -55,6 +96,7 @@ ul {
     font-family: 'Libre Franklin', sans-serif;
     font-style: italic;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .button:hover {
@@ -70,7 +112,6 @@ ul {
 }
 
 .footer {
-    position: sticky;
     margin: auto;
     max-width: 100%;
     min-width: 100%;
