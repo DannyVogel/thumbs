@@ -88,6 +88,12 @@ ul {
     transform: scaleX(-1);
 }
 
+.thumbBtnContainer {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+}
+
 .button {
     width: 150px;
     height: 50px;
