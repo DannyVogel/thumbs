@@ -26,8 +26,8 @@ const Main = () => {
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const handlePlayerGuess = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayerGuess(parseInt(e.target.value));
+  const handlePlayerGuess = (value: number) => {
+    setPlayerGuess(value);
   };
 
   const handClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -143,15 +143,18 @@ const Main = () => {
 
   return (
     <div className="bg-indigo-950 min-h-screen text-white flex flex-col items-center">
-      <div className="pt-10 mb-4 mx-auto flex flex-col items-center gap-2 w-32">
-        <p>Turn: {roundMessage}</p>
-        <PlayerGuessInput
-          handlePlayerGuess={handlePlayerGuess}
-          playerGuess={playerGuess}
-        />
+      <div className="pt-4 mx-auto flex flex-col items-center gap-2 w-52 min-h-40">
+        <p className="text-center">Turn: {roundMessage}</p>
+        {roundMessage === "Player's turn" ? (
+          <PlayerGuessInput
+            handlePlayerGuess={handlePlayerGuess}
+            totalHandCount={playerHandCount + aiHandCount}
+            playerGuess={playerGuess}
+          />
+        ) : null}
       </div>
 
-      <div className="flex justify-center items-start gap-10 min-h-50 bg-orange-100 w-full text-black py-5">
+      <div className="flex justify-center items-start gap-8 min-h-50 bg-orange-100 rounded-full text-black p-5">
         <PlayerHands
           playerHandCount={playerHandCount}
           isLeftClicked={isLeftClicked}

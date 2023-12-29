@@ -15,12 +15,12 @@ const Results = ({
 }: ResultsProps) => {
   return (
     <>
-      <p>Round {round} Results:</p>
-      <p>
+      <p className="text-center">Round {round} Results:</p>
+      <p className="text-center">
         {turn} guess: {guess}
       </p>
-      <p>Total thumbs raised: {thumbTotal}</p>
-      <p>{resultMessage}</p>
+      <p className="text-center">Total thumbs raised: {thumbTotal}</p>
+      <p className="text-center">{resultMessage}</p>
     </>
   );
 };

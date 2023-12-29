@@ -37,10 +37,7 @@ const GameButton = ({
   const buttonProps = getButtonProps();
 
   return (
-    <button
-      className="rounded-full border border-blue-500 bg-blue-200 px-4 py-2 flex justify-center items-center"
-      {...buttonProps}
-    />
+    <button className="btn btn-wide text-xl font-semibold" {...buttonProps} />
   );
 };
 
