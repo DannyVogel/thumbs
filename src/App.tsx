@@ -2,6 +2,7 @@ import { useState } from "react";
 import { playRound, playerThumbSelection } from "./services/gameLogic";
 import type { RoundResult } from "./types/index";
 import Hand from "./components/Hand";
+import Results from "./components/Results";
 
 const App = () => {
   const [playerGuess, setPlayerGuess] = useState(0);
@@ -182,16 +183,13 @@ const App = () => {
       </div>
 
       {isGameStarted ? (
-        <div className="mt-10 flex flex-col items-center text-4xl">
-          <p>Round {round} Results:</p>
-          {roundMessage === "AI's turn" ? (
-            <p>AI guess: {aiGuess}</p>
-          ) : (
-            <p>Your guess: {playerGuess}</p>
-          )}
-          <p>Total thumbs raised: {thumbTotal}</p>
-          <p>{resultMessage}</p>
-        </div>
+        <Results
+          round={round}
+          turn={roundMessage === "AI's turn" ? "AI" : "Your"}
+          guess={roundMessage === "AI's turn" ? aiGuess : playerGuess}
+          thumbTotal={thumbTotal}
+          resultMessage={resultMessage}
+        />
       ) : null}
     </>
   );
