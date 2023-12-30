@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { playRound, playerThumbSelection } from "../services/gameLogic";
 import type { RoundResult } from "../types/index";
 import PlayerGuessInput from "./PlayerGuessInput";
@@ -25,6 +25,8 @@ const Main = () => {
   const [roundMessage, setRoundMessage] = useState("Player's turn");
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+
+  // const [counter, setCounter] = useState(3);
 
   const handlePlayerGuess = (value: number) => {
     setPlayerGuess(value);
@@ -61,26 +63,23 @@ const Main = () => {
 
     setThumbTotal(results.totalThumbsRaised);
 
-    console.log("results", results);
     processResults(isPlayersTurn, results);
   };
 
   const processResults = (isPlayersTurn: boolean, results: RoundResult) => {
     if (isPlayersTurn) {
-      console.log("player guess", playerGuess);
       if (playerGuess === results.totalThumbsRaised) {
-        setResultMessage("You guessed correctly!");
+        setResultMessage("You guessed right!");
         setRoundWinner("player");
         if (playerHandCount === 1) {
           gameOver("player");
         }
       } else {
-        setResultMessage("You guessed incorrectly!");
+        setResultMessage("Wrong guess!");
       }
     } else {
-      console.log("ai guess", results.aiGuess);
       if (results.aiGuess === results.totalThumbsRaised) {
-        setResultMessage("The AI guessed correctly!");
+        setResultMessage("AI guessed wrong!");
         setAIGuess(results.aiGuess);
         setRoundWinner("ai");
         if (aiHandCount === 1) {
@@ -88,10 +87,9 @@ const Main = () => {
         }
       } else {
         setAIGuess(results.aiGuess ? results.aiGuess : 0);
-        setResultMessage("The AI guessed incorrectly!");
+        setResultMessage("AI guessed right!");
       }
     }
-    setRound(round + 1);
   };
 
   const prepNextRound = () => {
@@ -100,6 +98,7 @@ const Main = () => {
     } else if (roundWinner === "ai") {
       setAIHandCount(aiHandCount - 1);
     }
+    setRound(round + 1);
     setRoundWinner("");
     setPlayerGuess(0);
     setAIGuess(0);
@@ -110,8 +109,11 @@ const Main = () => {
     setThumbTotal(0);
     setResultMessage("");
     setIsGameStarted(false);
-    setRoundMessage(round % 2 === 0 ? "Player's turn" : "AI's turn");
   };
+
+  useEffect(() => {
+    setRoundMessage(round % 2 === 0 ? "Player's turn" : "AI's turn");
+  }, [round]);
 
   const gameOver = (winner: string) => {
     setIsGameOver(true);
@@ -119,7 +121,7 @@ const Main = () => {
       setResultMessage("You won!");
     }
     if (winner === "ai") {
-      setResultMessage("Ai Won!");
+      setResultMessage("AI Won!");
     }
   };
 
@@ -141,20 +143,26 @@ const Main = () => {
     setIsGameOver(false);
   };
 
+  // useEffect(() => {
+  //   if (isGameStarted) {
+  //     const intervalid = setInterval(() => {
+  //       setCounter((prevState) => (prevState -= 1));
+  //     }, 1000);
+  //     if (counter === 0) {
+  //       clearInterval(intervalid);
+  //     }
+  //   }
+  //   return;
+  // }, [isGameStarted]);
+
   return (
     <div className="bg-indigo-950 min-h-screen text-white flex flex-col items-center">
-      <div className="pt-4 mx-auto flex flex-col items-center gap-2 w-52 min-h-40">
-        <p className="text-center">Turn: {roundMessage}</p>
-        {roundMessage === "Player's turn" ? (
-          <PlayerGuessInput
-            handlePlayerGuess={handlePlayerGuess}
-            totalHandCount={playerHandCount + aiHandCount}
-            playerGuess={playerGuess}
-          />
-        ) : null}
+      <div className="my-4">
+        <p className="text-center text-lg font-semibold">Round {round + 1}</p>
+        <p className="text-center text-lg font-semibold">{roundMessage}</p>
       </div>
 
-      <div className="flex justify-center items-start gap-8 min-h-50 bg-orange-100 rounded-full text-black p-5">
+      <div className="flex justify-center items-start gap-8 min-h-50 bg-orange-100 rounded-3xl text-black p-5 min-h-52">
         <PlayerHands
           playerHandCount={playerHandCount}
           isLeftClicked={isLeftClicked}
@@ -169,7 +177,27 @@ const Main = () => {
         />
       </div>
 
-      <div className="mt-5 flex justify-center text-4xl">
+      <div className="mt-4 flex flex-col items-center min-h-28">
+        {isGameStarted ? (
+          <div className="text-xl">
+            <Results
+              turn={roundMessage === "AI's turn" ? "AI" : "Your"}
+              guess={roundMessage === "AI's turn" ? aiGuess : playerGuess}
+              thumbTotal={thumbTotal}
+              resultMessage={resultMessage}
+            />
+          </div>
+        ) : roundMessage === "Player's turn" ? (
+          <PlayerGuessInput
+            handlePlayerGuess={handlePlayerGuess}
+            totalHandCount={playerHandCount + aiHandCount}
+            playerGuess={playerGuess}
+          />
+        ) : (
+          <p className="pt-10 text-center text-xl">Prepare your thumbs!</p>
+        )}
+      </div>
+      <div className="mt-4 flex justify-center text-4xl">
         <GameButton
           isGameOver={isGameOver}
           isGameStarted={isGameStarted}
@@ -177,18 +205,6 @@ const Main = () => {
           prepNextRound={prepNextRound}
           startGame={startGame}
         />
-      </div>
-
-      <div className="mt-10 flex flex-col items-center text-4xl">
-        {isGameStarted ? (
-          <Results
-            round={round}
-            turn={roundMessage === "AI's turn" ? "AI" : "Your"}
-            guess={roundMessage === "AI's turn" ? aiGuess : playerGuess}
-            thumbTotal={thumbTotal}
-            resultMessage={resultMessage}
-          />
-        ) : null}
       </div>
     </div>
   );
