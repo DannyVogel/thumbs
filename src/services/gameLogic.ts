@@ -12,7 +12,6 @@ export const playRound = (
   playerThumbsRaised: number
 ): RoundResult => {
   const isPlayersTurn = round % 2 === 0;
-  isPlayersTurn ? console.log("player turn") : console.log("ai turn");
 
   if (isPlayersTurn) {
     return playerTurn(aiHandCount, playerThumbsRaised);
@@ -45,15 +44,7 @@ const aiTurn = (
   let aiGuess = 0;
   const totalHandCount = playerHandCount + aiHandCount;
   const aiSelection = aiThumbSelection(aiHandCount);
-  console.log(
-    "beforeGuess",
-    "totalHandCount",
-    totalHandCount,
-    "aiSelection.aiThumbsRaised",
-    aiSelection.aiThumbsRaised
-  );
   aiGuess = getAIGuess(totalHandCount, aiSelection.aiThumbsRaised);
-  console.log("aiGuess", aiGuess);
   totalThumbsRaised = aiSelection.aiThumbsRaised + playerThumbsRaised;
   return {
     totalThumbsRaised: totalThumbsRaised,
@@ -80,11 +71,6 @@ const aiThumbSelection = (aiHandCount: number): AISelection => {
   if (isAIRightThumbUp) {
     aiThumbsRaised++;
   }
-  console.log("aiSelection", {
-    isAILeftThumbUp: isAILeftThumbUp,
-    isAIRightThumbUp: isAIRightThumbUp,
-    aiThumbsRaised: aiThumbsRaised,
-  });
   return {
     isAILeftThumbUp: isAILeftThumbUp,
     isAIRightThumbUp: isAIRightThumbUp,
