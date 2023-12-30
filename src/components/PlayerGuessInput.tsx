@@ -12,7 +12,6 @@ const PlayerGuessInput = ({
   const renderButtons = () => {
     const buttons = [];
     for (let i = 0; i <= totalHandCount; i++) {
-      console.log("i", i, "playerGuess", playerGuess);
       buttons.push(
         <button
           key={i}
@@ -28,10 +27,10 @@ const PlayerGuessInput = ({
   };
   return (
     <>
-      <p className="text-white text-center">
+      <p className="text-white text-center max-w-xs">
         How many thumbs do you think will be raised in total?
       </p>
-      <div className="flex gap-3">{renderButtons()}</div>
+      <div className="pt-2 flex justify-center gap-3">{renderButtons()}</div>
     </>
   );
 };
