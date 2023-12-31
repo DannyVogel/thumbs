@@ -79,15 +79,15 @@ const Main = () => {
       }
     } else {
       if (results.aiGuess === results.totalThumbsRaised) {
-        setResultMessage("AI guessed wrong!");
+        setResultMessage("AI guessed right!");
         setAIGuess(results.aiGuess);
         setRoundWinner("ai");
         if (aiHandCount === 1) {
           gameOver("ai");
         }
       } else {
-        setAIGuess(results.aiGuess ? results.aiGuess : 0);
-        setResultMessage("AI guessed right!");
+        results.aiGuess && setAIGuess(results.aiGuess);
+        setResultMessage("AI guessed wrong!");
       }
     }
   };
