@@ -1,13 +1,35 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+interface CountdownProps {
+  guess: number;
+}
 
-// interface CountdownProps {
-//   guess: number;
-// }
+const Countdown = ({ guess }: CountdownProps) => {
+  const [count, setCount] = useState(1);
 
-// const Countdown = ({ guess }: CountdownProps) => {
-//   console.log(guess);
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      setCount((prevCount) => (prevCount < 4 ? prevCount + 1 : 4));
+    }, 600);
 
-//   return <div>Countdown</div>;
-// };
+    return () => clearInterval(countdown);
+  }, []);
 
-// export default Countdown;
+  return (
+    <>
+      {count < 4 ? (
+        <p className={`text-5xl font-bold transition duration-500 `}>{count}</p>
+      ) : (
+        <div className="flex flex-col gap-2 text-center">
+          <p className="text-6xl font-bold animate-bounce text-orange-400">
+            Guess
+          </p>
+          <p className="text-6xl font-bold animate-bounce text-orange-400">
+            {guess}
+          </p>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Countdown;

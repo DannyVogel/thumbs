@@ -4,6 +4,7 @@ import type { RoundResult } from "../types/index";
 import PlayerGuessInput from "./PlayerGuessInput";
 import PlayerHands from "./PlayerHands";
 import AIHands from "./AIHands";
+import Countdown from "./Countdown";
 import GameButton from "./GameButton";
 import Results from "./Results";
 
@@ -24,9 +25,8 @@ const Main = () => {
   const [round, setRound] = useState(0);
   const [roundMessage, setRoundMessage] = useState("Player's turn");
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [showCountdown, setShowCountdown] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
-
-  // const [counter, setCounter] = useState(3);
 
   const handlePlayerGuess = (value: number) => {
     setPlayerGuess(value);
@@ -41,6 +41,7 @@ const Main = () => {
 
   const startGame = () => {
     setIsGameStarted(true);
+    setShowCountdown(true);
     setResultMessage("");
     setRoundWinner("");
     const isPlayersTurn = round % 2 === 0;
@@ -90,6 +91,9 @@ const Main = () => {
         setResultMessage("AI guessed wrong!");
       }
     }
+    setTimeout(() => {
+      setShowCountdown(false);
+    }, 3500);
   };
 
   const prepNextRound = () => {
@@ -206,6 +210,16 @@ const Main = () => {
           startGame={startGame}
         />
       </div>
+      {showCountdown ? (
+        <>
+          <div className="fixed top-0 right-0 h-full w-full bg-black opacity-50 z-10"></div>
+          <div className="fixed bottom-0 sm:bottom-1/2 sm:translate-y-1/2 right-1/2 translate-x-1/2 w-full sm:w-64 bg-slate-800 z-20 rounded-t-lg sm:rounded-lg max-w-xl flex justify-center items-center sm:h-40 h-72">
+            <Countdown
+              guess={roundMessage === "Player's turn" ? playerGuess : aiGuess}
+            />
+          </div>
+        </>
+      ) : null}
     </div>
   );
 };
