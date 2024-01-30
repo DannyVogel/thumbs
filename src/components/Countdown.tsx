@@ -19,7 +19,7 @@ const Countdown = ({ guess }: CountdownProps) => {
       {count < 4 ? (
         <p className={`text-5xl font-bold transition duration-500 `}>{count}</p>
       ) : (
-        <div className="flex flex-col gap-2 text-center">
+        <div className="w-full flex flex-col gap-2 text-center">
           <p className="text-6xl font-bold animate-bounce text-orange-400">
             Guess
           </p>

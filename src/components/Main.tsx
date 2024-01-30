@@ -8,7 +8,11 @@ import Countdown from "./Countdown";
 import GameButton from "./GameButton";
 import Results from "./Results";
 
-const Main = () => {
+type MainProps = {
+  showRules: () => void;
+};
+
+const Main = ({ showRules }: MainProps) => {
   const [playerGuess, setPlayerGuess] = useState(0);
   const [playerHandCount, setPlayerHandCount] = useState(2);
   const [isLeftClicked, setIsLeftClicked] = useState(false);
@@ -147,20 +151,8 @@ const Main = () => {
     setIsGameOver(false);
   };
 
-  // useEffect(() => {
-  //   if (isGameStarted) {
-  //     const intervalid = setInterval(() => {
-  //       setCounter((prevState) => (prevState -= 1));
-  //     }, 1000);
-  //     if (counter === 0) {
-  //       clearInterval(intervalid);
-  //     }
-  //   }
-  //   return;
-  // }, [isGameStarted]);
-
   return (
-    <div className="bg-indigo-950 min-h-screen text-white flex flex-col items-center">
+    <div className=" text-white flex flex-col items-center">
       <div className="my-4">
         <p className="text-center text-lg font-semibold">Round {round + 1}</p>
         <p className="text-center text-lg font-semibold">{roundMessage}</p>
@@ -201,7 +193,7 @@ const Main = () => {
           <p className="pt-10 text-center text-xl">Prepare your thumbs!</p>
         )}
       </div>
-      <div className="mt-4 flex justify-center text-4xl">
+      <div className="mt-4 flex flex-col gap-8 justify-center text-4xl">
         <GameButton
           isGameOver={isGameOver}
           isGameStarted={isGameStarted}
@@ -209,11 +201,18 @@ const Main = () => {
           prepNextRound={prepNextRound}
           startGame={startGame}
         />
+
+        <button
+          className="btn btn-xs bg-blue-300 text-black"
+          onClick={showRules}
+        >
+          Rules
+        </button>
       </div>
       {showCountdown ? (
         <>
           <div className="fixed top-0 right-0 h-full w-full bg-black opacity-50 z-10"></div>
-          <div className="fixed bottom-0 sm:bottom-1/2 sm:translate-y-1/2 right-1/2 translate-x-1/2 w-full sm:w-64 bg-slate-800 z-20 rounded-t-lg sm:rounded-lg max-w-xl flex justify-center items-center sm:h-40 h-72">
+          <div className="absolute bottom-0 sm:bottom-2/3 sm:translate-y-1/2 right-1/2 translate-x-1/2  bg-slate-800 z-20 sm:rounded-lg  flex justify-center items-center max-w-xl w-screen h-screen sm:h-96">
             <Countdown
               guess={roundMessage === "Player's turn" ? playerGuess : aiGuess}
             />

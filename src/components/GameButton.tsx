@@ -37,7 +37,10 @@ const GameButton = ({
   const buttonProps = getButtonProps();
 
   return (
-    <button className="btn btn-wide text-xl font-semibold" {...buttonProps} />
+    <button
+      className="btn btn-wide text-xl font-semibold bg-blue-100 text-black"
+      {...buttonProps}
+    />
   );
 };
 
