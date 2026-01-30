@@ -68,7 +68,7 @@ const aiThumbSelection = (aiHandCount: number): AISelection => {
   if (isAILeftThumbUp && aiHandCount > 1) {
     aiThumbsRaised++;
   }
-  if (isAIRightThumbUp) {
+  if (isAIRightThumbUp && aiHandCount > 0) {
     aiThumbsRaised++;
   }
   return {
